@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('bcrypt')
 const store = require('../src/componentes/users/store')
 const secret = '3IxwnMoO5VLyN9D1JYRAsB4Z0qk2Cjm8'
+
+
 router.post('/recovery', async (req, res) => {
   try {
     const email = req.body

@@ -13,6 +13,7 @@ router.post('/recovery', async (req, res) => {
       sub: user.id,
       role: user.role
     }
+    console.log(user)
     console.log(`el payload ${payload.sub} ${payload.role}`)
     const token = jwt.sign(payload, secret)
     console.log(`el token: ${token}`)

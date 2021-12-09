@@ -8,8 +8,10 @@ const path = require('path')
 const { dirname } = require('path')
 const urlencode = bodyParser.urlencoded({ extends: false })
 const passport = require('passport')
+const {config} = require('./config')
+const url = config.dbUrl
 
-db('mongodb://localhost/tienda')
+db(url)
 
 app.use(express.static('/views'))
 app.use(bodyParser.json())

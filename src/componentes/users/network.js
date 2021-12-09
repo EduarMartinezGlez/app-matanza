@@ -17,7 +17,6 @@ router.post('/add', (req, res) => {
   } else {
     checkboxAddress = true
   }
-  // console.log(firstName, lastName, email, password, address, checkboxAddress)
   Users = {
     firstName: firstName,
     lastName: lastName,

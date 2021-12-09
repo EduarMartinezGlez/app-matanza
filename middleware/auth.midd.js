@@ -1,3 +1,4 @@
+'use strict'
 
 function checkAdminRole (req, res, next) {
   const user = req.user

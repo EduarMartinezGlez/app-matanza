@@ -1,5 +1,8 @@
 "use strict"
-const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer")
+const {config}= require('./config/config')
+const useremail = config.UserEmail
+const emailpass = onfig.EmailPass
 
 async function sendMail() {
 
@@ -8,8 +11,8 @@ async function sendMail() {
     secure: true, // true for 465, false for other ports
      port: 465,
     auth: {
-        user: 'emartinezgonzalez2012@gmail.com',
-        pass: 'jgeofbnelrieuwek'
+        user: useremail,
+        pass: emailpass
     }
   });
 

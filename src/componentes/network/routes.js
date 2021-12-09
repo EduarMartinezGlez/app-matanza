@@ -1,4 +1,3 @@
-const express = require('express')
 const product = require('../products/network')
 const users = require('../users/network')
 const auth = require('../auth/auth')

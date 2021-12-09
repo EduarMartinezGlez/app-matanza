@@ -2,27 +2,27 @@ const express = require('express')
 const router = express.Router()
 const controller = require('./controller')
 const response = require('../../response')
-// const fileUpload = require('express-fileupload')
 const multer = require('multer')
 const passport = require('passport')
 const  checkRole  = require('../../../middleware/auth.midd')
 
-// middlware for upfile
 const {
   productIdSchema,
   createProduct,
   updateProduct
 } = require('../../../middleware/schema/schema_product')
 
-// middlware for valdation of product
 const validate = require('../../../middleware/validation')
 
 const upload = multer({
   dest: 'src/public/files/'
 })
 
-router.post('/', passport.authenticate('jwt', { session: false }), checkRole(['admin','costumers']), upload.single('file'), validate(createProduct), (req, res, next) => {
-  // console.log(req.file)
+router.post('/', passport.authenticate('jwt', { session: false }), checkRole(['admin','costumers']),
+ upload.single('file'), 
+ validate(createProduct),
+
+  (req, res, next) => {
   controller.addProduct(req.body.name, req.body.price, req.body.amount, req.file)
     .then((products) => {
       res.redirect('/product')
@@ -31,13 +31,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), checkRole(['a
       response.error(req, res, 'error en el post producto', 500, err)
     })
 })
+
 router.get('/add', passport.authenticate('jwt', { session: false }), checkRole('admin'), (req, res) => {
   res.render('add_prod')
 })
 
 router.get('/', (req, res) => {
   controller.getProducts()
-  // person = {name:"John", age:31, city:"New York"}
     .then((products) => {
       res.render('index', { products })
     })
@@ -57,8 +57,7 @@ router.put('/', (req, res) => {
     price: price,
     amount: amount
   }
-  // const  UpdateProd  = req.body
-  console.log(id_UpProd, UpProd)
+ // console.log(id_UpProd, UpProd)
   controller.UpdateProd(id_UpProd, UpProd)
     .then((data) => { response.success(req, res, data, 200) })
     .catch(err => {

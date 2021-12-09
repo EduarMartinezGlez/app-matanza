@@ -1,5 +1,6 @@
+'use strict'
+
 const boom = require('@hapi/boom')
-const joi = require('joi')
 
 function validatorHandler (schema, property) {
   return (req, res, next) => {

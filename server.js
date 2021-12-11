@@ -8,8 +8,12 @@ const path = require('path')
 const { dirname } = require('path')
 const urlencode = bodyParser.urlencoded({ extends: false })
 const passport = require('passport')
-const {config} = require('./config')
-const url = config.dbUrl
+
+const { config } = require('./config/config')
+
+const url = config.BD_URL
+
+console.log('prueba de variables' + url)
 
 db(url)
 
@@ -33,9 +37,8 @@ app.set('views', './views')
 
 app.use(express.static('public'))
 
-const initializePassport=require('./util/index')
+const initializePassport = require('./util/index')
 initializePassport(passport)
-
 
 router(app)
 

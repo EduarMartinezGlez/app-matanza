@@ -9,7 +9,7 @@ const localStrategy = new Stratregy({
 }, async (email, password, done) => {
   try {
     const user = await store.findUser(email)
-   
+
     if (!user) {
       done('error no se encontro el user', false)
     }
@@ -17,11 +17,11 @@ const localStrategy = new Stratregy({
     if (!isMath) {
       done(null, false)
     }
-     usersend={
-      id:user.id,
+    usersend = {
+      id: user.id,
       role: user.role
     }
-    //console.log(`el user send ${usersend.id}`)
+    // console.log(`el user send ${usersend.id}`)
     done(null, usersend)
   } catch (error) {
     done(error, false)

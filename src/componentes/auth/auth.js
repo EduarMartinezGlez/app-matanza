@@ -6,7 +6,8 @@ const router = express.Router()
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
-const {config} = require('../../../config/config')
+const {service} = require('../../../service/recovery.pass')
+const { config } = require('../../../config/config')
 
 const sercret = config.sercret
 
@@ -18,16 +19,26 @@ router.post('/', passport.authenticate('local', { session: false, failureRedirec
   try {
     console.log(`usuario en el endpoint post  ${req.user}`)
     const user = req.user
-    const payload = { 
+    const payload = {
       sub: user.id,
       role: user.role
     }
     console.log(`el payload ${payload.sub} ${payload.role}`)
     const token = jwt.sign(payload, sercret)
     console.log(`el token: ${token}`)
- 
+
     res.redirect('/product')
   } catch { response.error(req, res, 'error en el post user', 500, err) }
+})
+
+router.post('/recovery', async (req, res, next) => {
+  try {
+    const { email } = req.body
+    const rta = await service.sendRecovery(email)
+    res.json(rta)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router

@@ -16,6 +16,17 @@ function createUser (Users) {
     resolve(Users)
   })
 }
+function UpdateUser(Users) {
+  return new Promise((resolve, reject)=>{
+    if(!Users.id){
+      reject('error en el update')
+      return false
+    }
+    store.UpdateUser(Users)
+    resolve(Users)
+  })
+  
+}
 
 module.exports = {
   getUser,

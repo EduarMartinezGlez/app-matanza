@@ -21,6 +21,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  recoveryToken:{
+    type: String,
+    require: false
+  },
   role: {
     type: String
     // required: true

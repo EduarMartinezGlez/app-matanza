@@ -20,8 +20,16 @@ async function findUser (email) {
   const user = await Model.findOne({ email })
   return user
 }
+async function UpdateUser(user_id, UserData) {
+  const user = await Model.updateOne({
+    _id:user_id},
+    {$set:{UserData}
+  })
+  return user
+}
 
 module.exports = {
   createUser,
-  findUser
+  findUser, 
+  UpdateUser
 }

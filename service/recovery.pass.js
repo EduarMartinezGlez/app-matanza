@@ -20,9 +20,10 @@ async function sendRecovery (email) {
     role: user.role
   }
 
-  const token = jwt.sign(payload, config.sercret)
+  const token = jwt.sign(payload, config.sercret, {expiresIn: '15min'})
  const link =`http://myfront.com/recovery?token=${token}`
-  const mail = {
+ await store.UpdateUser(user.id, token)
+  const mail = { 
     from: config.AdminEmail, // sender address
     to: `${user.email} `, // list of receivers
     subject: 'Email para recuperar la Password ✔', // Subject line

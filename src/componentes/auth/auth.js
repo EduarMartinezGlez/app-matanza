@@ -31,14 +31,5 @@ router.post('/', passport.authenticate('local', { session: false, failureRedirec
   } catch { response.error(req, res, 'error en el post user', 500, err) }
 })
 
-router.post('/recovery', async (req, res, next) => {
-  try {
-    const { email } = req.body
-    const rta = await service.sendRecovery(email)
-    res.json(rta)
-  } catch (error) {
-    next(error)
-  }
-})
 
 module.exports = router

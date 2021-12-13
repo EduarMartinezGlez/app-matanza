@@ -22,19 +22,19 @@ async function findUser (email) {
 }
 
 async function recoveryPassword(user_id, recoveryToken) {
+  console.log(user_id)
   const user = await Model.findOne({user_id})
   if(!user){
     console.error('error to find user')
   }
   await Model.updateOne(
-    {_id:{user_id}}, {$set:{recoveryToken}}
+    {_id:(user_id)}, {$set:{recoveryToken}}
   )
-
+  return user
 }
 
 module.exports = {
   createUser,
   findUser, 
-  UpdateUser,
   recoveryPassword
 }

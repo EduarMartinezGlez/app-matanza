@@ -27,7 +27,7 @@ async function recoveryPassword(user_id, recoveryToken) {
     console.error('error to find user')
   }
   await Model.updateOne({
-    {{_id:user_id}, {$set:recoveryToken}}
+    {{_id:user_id}, {$set:recoveryToken}
   })
   return user
 }

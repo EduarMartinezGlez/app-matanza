@@ -38,4 +38,3 @@ module.exports = {
   UpdateUser,
   recoveryPassword
 }
-Smellsliketeen88*

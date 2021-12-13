@@ -29,7 +29,7 @@ async function recoveryPassword(user_id, recoveryToken) {
   await Model.updateOne(
     {_id:{user_id}}, {$set:{recoveryToken}}
   )
-  return user
+
 }
 
 module.exports = {

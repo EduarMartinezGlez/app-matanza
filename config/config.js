@@ -2,6 +2,7 @@ require('dotenv').config()
 const config = {
   env: process.env.NODE_ENV || 'dev',
   port: process.env.PORT || 3000,
+  host : process.env.HOST || '0.0.0.0' ,
   dbUser: process.env.DB_USER,
   dbPassword: process.env.DB_PASSWORD,
   dbHost: process.env.DB_HOST,
@@ -11,6 +12,7 @@ const config = {
   AdminEmail: process.env.ADMINEMAIL,
   EmailPass: process.env.EMAILPASS,
   BD_URL: process.env.URL
+ 
 }
 console.log('variable ' + config.UserEmail)
 module.exports = { config }

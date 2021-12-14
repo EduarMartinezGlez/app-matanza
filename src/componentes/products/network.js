@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express')
 const router = express.Router()
 const controller = require('./controller')
@@ -18,11 +19,12 @@ const upload = multer({
   dest: 'src/public/files/'
 })
 
-router.post('/', passport.authenticate('jwt', { session: false }), checkRole(['admin', 'costumers']),
-  upload.single('file'),
-  validate(createProduct),
-
-  (req, res, next) => {
+router.post('/', 
+passport.authenticate('jwt', { session: false }), 
+checkRole(['admin', 'costumers']),
+upload.single('file'),
+validate(createProduct),
+(req, res, next) => {
     controller.addProduct(req.body.name, req.body.price, req.body.amount, req.file)
       .then((products) => {
         res.redirect('/product')
@@ -32,9 +34,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), checkRole(['a
       })
   })
 
-router.get('/add', passport.authenticate('jwt', { session: false }), checkRole('admin'), (req, res) => {
+router.get('/add', 
+passport.authenticate('jwt', { session: false }),
+checkRole('admin'), 
+(req, res) => {
   res.render('add_prod')
 })
+
 
 router.get('/', (req, res) => {
   controller.getProducts()
@@ -46,23 +52,53 @@ router.get('/', (req, res) => {
     })
 })
 
-router.put('/', (req, res) => {
-  const { id_prod, name, price, amount } = req.body
-  const id_UpProd = {
-    id: id_prod
-  }
-  const UpProd = {
+router.patch('/',
 
+(req, res) => {
+  const id_prod = req.body
+  const { name, price, amount } = req.body
+  console.log(id_prod)
+  const UpProd = {
     name: name,
     price: price,
-    amount: amount
+    amount: amount,
+    date: new Date
   }
   // console.log(id_UpProd, UpProd)
-  controller.UpdateProd(id_UpProd, UpProd)
+  controller.UpdateProd(id_prod, UpProd)
     .then((data) => { response.success(req, res, data, 200) })
     .catch(err => {
       response.error(req, res, 'error en patch', 500, err)
     })
+
 })
+
+// router.patch('/:id',
+//   validatorHandler(getProductSchema, 'params'),
+//   validatorHandler(updateProductSchema, 'body'),
+//   async (req, res, next) => {
+//     try {
+//       const { id } = req.params;
+//       const body = req.body;
+//       const product = await service.update(id, body);
+//       res.json(product);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
+
+// router.delete('/:id',
+//   validatorHandler(getProductSchema, 'params'),
+//   async (req, res, next) => {
+//     try {
+//       const { id } = req.params;
+//       await service.delete(id);
+//       res.status(201).json({id});
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 module.exports = router

@@ -30,14 +30,14 @@ function getProducts () {
     resolve(store.getProducts())
   })
 }
-async function UpdateProd (id_UpProd, UpProd) {
-  console.log(id_UpProd, UpProd)
+async function UpdateProd (id_prod, UpProd) {
+  //console.log(id_UpProd, UpProd)
   return new Promise(async (resolve, reject) => {
-    if (!id_UpProd) {
+    if (!id_prod) {
       reject('invalid data of Upadte')
       return false
     }
-    const doneUpdate = await store.updateproduct(id_UpProd, UpProd)
+    const doneUpdate = await store.updateproduct(id_prod, UpProd)
     resolve(doneUpdate)
     return doneUpdate
   })

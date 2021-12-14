@@ -15,7 +15,8 @@ const url = config.BD_URL
 
 console.log('prueba de variables' + url)
 
-db(url)
+const uri = `mongodb+srv://AdminEMG:${config.dbPassword}@app-store.h9pvd.mongodb.net/tienda-Matanza?retryWrites=true&w=majority`
+db(uri)
 
 app.use(express.static('/views'))
 app.use(bodyParser.json())
@@ -42,5 +43,6 @@ initializePassport(passport)
 
 router(app)
 
-app.listen(3000)
-console.log('app running')
+app.listen(config.port, config.host, () =>{
+  console.log('app running')})
+

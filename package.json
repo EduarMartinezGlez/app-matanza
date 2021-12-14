@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard",
     "dev": "nodemon",
-    "start": "node"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

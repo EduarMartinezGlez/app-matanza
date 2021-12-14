@@ -15,7 +15,7 @@ const url = config.BD_URL
 
 console.log('prueba de variables' + url)
 
-const uri = `mongodb+srv://AdminEMG:${config.dbPassword}@app-store.h9pvd.mongodb.net/tienda-Matanza?retryWrites=true&w=majority`
+const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@app-matanza.h9pvd.mongodb.net/${config.dbName}?retryWrites=true&w=majority`
 db(uri)
 
 app.use(express.static('/views'))

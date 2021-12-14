@@ -18,10 +18,10 @@ const validate = require('../../../middleware/validation')
 const upload = multer({
   dest: 'src/public/files/'
 })
-
+// passport.authenticate('jwt', { session: false }), 
+//checkRole(['admin', 'costumers']),
 router.post('/', 
-passport.authenticate('jwt', { session: false }), 
-checkRole(['admin', 'costumers']),
+
 upload.single('file'),
 validate(createProduct),
 (req, res, next) => {

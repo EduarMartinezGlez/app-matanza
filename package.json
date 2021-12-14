@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "lint": "standard",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node"
   },
   "keywords": [],
   "author": "",

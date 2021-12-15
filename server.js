@@ -18,8 +18,9 @@ const url = config.BD_URL
 console.log('prueba de variables' + url)
 
 const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@app-matanza.h9pvd.mongodb.net/${config.dbName}?retryWrites=true&w=majority`
-db(uri || url)
+const internetdb = db(uri)
 
+console.log('servidor internet ', internetdb)
 app.use(express.static('/views'))
 app.use(bodyParser.json())
 app.use(urlencode)

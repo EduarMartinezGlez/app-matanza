@@ -20,10 +20,11 @@ const upload = multer({
 })
 // passport.authenticate('jwt', { session: false }), 
 //checkRole(['admin', 'costumers']),
+validate(createProduct),
 router.post('/', 
 
 upload.single('file'),
-validate(createProduct),
+
 (req, res, next) => {
     controller.addProduct(req.body.name, req.body.price, req.body.amount, req.file)
       .then((products) => {

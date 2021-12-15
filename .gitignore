@@ -4,3 +4,4 @@ public
 scr
 src/public
 .env
+*.jpg

@@ -70,7 +70,7 @@ router.patch('/',
     .catch(err => {
       response.error(req, res, 'error en patch', 500, err)
     })
-
+  next(err)
 })
 
 // router.patch('/:id',

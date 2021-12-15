@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   res.render('register')
 })
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
   const { firstName, lastName, email, password, address } = req.body
   const check = req.body.check
   if (!check) {
@@ -33,6 +33,7 @@ router.post('/add', (req, res) => {
     .catch(err => {
       response.error(req, res, 'error en el post user', 500, err)
     })
+    next(err)
 })
 
 module.exports = router

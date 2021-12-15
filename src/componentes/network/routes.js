@@ -5,7 +5,7 @@ const recovery = require('../recovery/recovery')
 
 const routes = function (server) {
   server.use('/product', product)
-  server.use('/produc/add', product)
+  server.use('/product/add', product)
   server.use('/user', users)
   server.use('/auth', auth)
   server.use('/recovery', recovery)

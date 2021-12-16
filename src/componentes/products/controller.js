@@ -2,7 +2,7 @@
 const store = require('./store')
 
 function addProduct (name, price, amount, file) {
-  console.log(name, price, amount, file)
+ // console.log(name, price, amount, file)
   return new Promise((resolve, reject) => {
     if (!name || !price || !amount) {
       reject(' falta algun dato del producto, controler addproduct')

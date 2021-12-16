@@ -11,7 +11,7 @@ const config = {
   sercret: process.env.JWT_SERCRET,
   AdminEmail: process.env.ADMINEMAIL,
   EmailPass: process.env.EMAILPASS,
-  BD_URL: process.env.URL
+  BD_URL: process.env.URL 
  
 }
 console.log('variable ' + config.UserEmail)

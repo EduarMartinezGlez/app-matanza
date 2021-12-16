@@ -8,14 +8,14 @@ const path = require('path')
 const { dirname } = require('path')
 const urlencode = bodyParser.urlencoded({ extends: false })
 const passport = require('passport')
-const {errorHandler, logErrors} =require('./middleware/error.handle')
+const {errorHandler, logErrors, boomerrorHandler} =require('./middleware/error.handle')
 const helmet =require('helmet')
 
 const { config } = require('./config/config')
 
-const url = config.BD_URL
+//const url = config.BD_URL
 
-console.log('prueba de variables' + url)
+//console.log('prueba de variables' + url)
 
 const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@app-matanza.h9pvd.mongodb.net/${config.dbName}?retryWrites=true&w=majority`
 const internetdb = db(uri)
@@ -50,6 +50,7 @@ router(app)
 //error handle
 app.use(logErrors)
 app.use(errorHandler)
+app.use(boomerrorHandler)
 
 app.listen(config.port, config.host, () =>{
   console.log('app running')})

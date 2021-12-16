@@ -6,6 +6,7 @@ const response = require('../../response')
 const multer = require('multer')
 const passport = require('passport')
 const checkRole = require('../../../middleware/auth.midd')
+const boom = require('@hapi/boom')
 
 const {
   productIdSchema,
@@ -20,36 +21,38 @@ const upload = multer({
 })
 // passport.authenticate('jwt', { session: false }), 
 //checkRole(['admin', 'costumers']),
-validate(createProduct),
+//validate(createProduct),
 router.post('/', 
-
 upload.single('file'),
-
 (req, res, next) => {
     controller.addProduct(req.body.name, req.body.price, req.body.amount, req.file)
       .then((products) => {
         res.redirect('/product')
       })
       .catch(err => {
-        response.error(req, res, 'error en el post producto', 500, err)
+        boom.notFound(req, res, 'error en el post producto', 500, err)
       })
   })
 
 router.get('/add', 
 passport.authenticate('jwt', { session: false }),
 checkRole('admin'), 
-(req, res) => {
-  res.render('add_prod')
+(req, res, next) => {
+  try{
+    res.render('add_prod')
+  }catch(error){ 
+  next(error)
+  }
 })
 
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   controller.getProducts()
     .then((products) => {
       res.render('index', { products })
     })
     .catch(err => {
-      response.error(req, res, 'error en el get prod', 500, err)
+      boom.notFound(req, res, 'error en el get prod', 500, err)
     })
 })
 

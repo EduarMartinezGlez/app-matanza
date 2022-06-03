@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  postgres: 
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=my_store
+      - POSTGRES_USER=Eduard
+      - POSTGRES_PASSWORD=dejame
+    ports:
+    - 5432:5432
+    # volumes:
+    # - ./postgres_data:/var/lib/postgresql/data
+  # pgadmin: dpage/pgadmin
+  # environment:
+  #  - PGADMIN_DEFAULT_EMAIL=
+  #  - PGADMIN_DEFAULT_PASSWORD

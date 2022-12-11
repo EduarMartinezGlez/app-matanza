@@ -1,11 +1,13 @@
 version: '3.7'
 
 services:
-  postgres: 
+  db:
     image: postgres:14
+    restart: always
     environment:
-      - POSTGRES_DB=my_store
-      - POSTGRES_USER=Eduard
+      - POSTGRES_HOST= 127.0.0.1
+      - POSTGRES_DB=Store
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=dejame
     ports:
     - 5432:5432

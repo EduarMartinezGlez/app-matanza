@@ -1,5 +1,5 @@
 const express = require('express');
-
+const bcrypt = require('bcrypt')
 const UserService = require('./../services/user.service');
 const validatorHandler = require('./../middlewares/validator.handler');
 const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/user.schema');
@@ -9,8 +9,9 @@ const service = new UserService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const categories = await service.find();
-    res.json(categories);
+
+    const Users = await service.find();
+    res.json(Users);
   } catch (error) {
     next(error);
   }
@@ -28,14 +29,32 @@ router.get('/:id',
     }
   }
 );
+router.post('/login', async( req, res, next)=>{
+try{
+  const {email, password} =  req.body
+  const User = await service.findByEmail(email, password)
+  res.status(201).json(User);
+}catch(error) {
+  next(error);
 
+}
+
+}
+)
 router.post('/',
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      const newCategory = await service.create(body);
-      res.status(201).json(newCategory);
+      const {...body} = req.body;
+      const hashPassword = await bcrypt.hash(body.password, 10)
+      const user ={
+        name:body.name,
+        password: hashPassword,
+        email: body.email,
+        role: body.role
+      }
+      const newUser = await service.create(user);
+      res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }

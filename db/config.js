@@ -7,9 +7,9 @@ const USER = encodeURIComponent(config.dbUser)
 module.exports= {
 
   development:{
-    "username": "postgres",
+    "username": "EduardMartGlez",
     "password": "dejame",
-    "database": "my_store",
+    "database": "My_Store",
     "host": "localhost",
     "dialect": "postgres"
   },

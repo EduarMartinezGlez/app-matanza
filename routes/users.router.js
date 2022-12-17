@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt')
 const UserService = require('./../services/user.service');
 const validatorHandler = require('./../middlewares/validator.handler');
 const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/user.schema');
@@ -45,15 +44,8 @@ router.post('/',
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
-      const {...body} = req.body;
-      const hashPassword = await bcrypt.hash(body.password, 10)
-      const user ={
-        name:body.name,
-        password: hashPassword,
-        email: body.email,
-        role: body.role
-      }
-      const newUser = await service.create(user);
+      const body = req.body;
+      const newUser = await service.create(body);
       res.status(201).json(newUser);
     } catch (error) {
       next(error);

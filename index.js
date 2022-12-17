@@ -1,14 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const session=require('express-session')
 const routerApi = require('./routes');
 
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 
 const whitelist = ['http://localhost:8080', 'https://myapp.co'];
 const options = {
@@ -21,7 +24,16 @@ const options = {
   }
 }
 app.use(cors(options));
+//passport
+app.use(session({
+  secret: "secret",
+  resave: false ,
+  saveUninitialized: true ,
+}))
 
+require('./config/index.strategy')
+app.use(passport.initialize())
+app.use(passport.session())
 
 routerApi(app);
 

@@ -1,61 +1,61 @@
-'use strict'
+'use strict';
 const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-const {User} = require('../db/models/user.model')
-
+const {models} = require('../lib/sequelize')
 
 class UserService {
   constructor() {}
 
   async create(data) {
- //console.log('model con user',data.password);
-    const newUser = await User.create(data)
+    //console.log('model con user',data.password);
+    const hashPassword = await bcrypt.hash(data.password, 10)
+    const newUser = await models.User.create({
+      ...data,
+    password:hashPassword
+  });
     return newUser;
   }
 
   async find() {
-    const rta= await User.findAll({
-    // include:['customer']
-    })
+    const rta = await models.User.findAll({
+     include:['customer']
+    });
     return rta;
   }
 
   async findOne(id) {
-    const user =await User.findByPk(id)
-    if(!user){
-     throw boom.notFound('user not found')
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('user not found');
     }
-    return user ;
+    return user;
   }
 
-  async findByEmail(email, password){
-    console.error('email que entra por parametrons en findbyemail',{email})
-    const user = await User.findOne({
-      where:{email}
+  async findByEmail(email, password) {
+    // console.error('email que entra por parametrons en findbyemail', { email });
+    const user = await models.User.findOne({
+      where: { email },
+    });
+    if (!user) {
+      throw boom.notFound('email o password wrong');
     }
-      )
-    console.log('usuario de la bd',user);
-    if(!user){
-      throw boom.notFound('email o password wrong')
-    }
-    console.error('assword que es devuelto de la bd ',user.password);
-    console.log('password pasado por parametros',password);
-    const compare = await bcrypt.compare({password}, user.password)
-    console.log(compare);
-    if(compare){
-      return user
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      return user;
     }
   }
+
+
   async update(id, changes) {
-    const user = await this.findOne(id)
-    const rta = user.update(changes)
-    return rta
+    const user = await this.findOne(id);
+    const rta = user.update(changes);
+    return rta;
   }
 
   async delete(id) {
-    const user =await this.findOne(id)
-    await user.destroy()
+    const user = await this.findOne(id);
+    await user.destroy();
     return { id };
   }
 }

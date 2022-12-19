@@ -18,10 +18,12 @@ class UserService {
   }
 
   async find() {
-    const rta = await models.User.findAll({
+    const user = await models.User.findAll({
      include:['customer']
     });
-    return rta;
+
+
+    return user;
   }
 
   async findOne(id) {
@@ -45,8 +47,13 @@ class UserService {
       return user;
     }
   }
-
-
+  async findOnlyByEmail(email, ) {
+    // console.error('email que entra por parametrons en findbyemail', { email });
+    const user = await models.User.findOne({
+      where: { email },
+    });
+    return user
+  }
   async update(id, changes) {
     const user = await this.findOne(id);
     const rta = user.update(changes);

@@ -9,7 +9,10 @@ const localStrategy = new LocalStategy(
     },
 
     function verify(username, password, done) {
-        models.User.findOne({ where: { email: username } })
+        models.User.findOne({
+            where: { email: username },
+           // attributes:{exclude:['password']}
+         })
             .then(theUser => {
                 if (!theUser) {
                     return done(null, false, { message: "User does not exist" });

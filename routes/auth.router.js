@@ -1,11 +1,10 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-//const { session } = require('passport');
 const passport = require('passport')
 
-const router = express.Router();
+const AuthService = require('../services/auth.service')
+const service = new AuthService()
 
-const { config } = require('../config/config')
+const router = express.Router();
 
 
 router.post('/login',
@@ -13,37 +12,35 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const user = req.user
-      const payload = {
-        sub: user.id,
-        role: user.role
-      }
-      const token = jwt.sign(payload, config.jwtSecret)
-      res.status(201).json({
-        user,
-        token
-      });
+      res.json(
+        service.singToken(user)
+      );
     } catch (error) {
-      //console.log('errror  ene ahtu', req.body);
       next(error);
 
     }
-
   }
 )
 
 router.post('/recovery',
   async (req, res, next) => {
     try {
-      const user = req.user
-      const payload = {
-        sub: user.id,
-        role: user.role
-      }
-      const token = jwt.sign(payload, config.jwtSecret)
-      res.status(201).json({
-        user,
-        token
-      });
+      const { email } = req.body
+      const rta = await service.sendRecovryEmail(email)
+      res.json(rta)
+    } catch (error) {
+      //console.log('errror  ene ahtu', req.body);
+      next(error);
+
+    }
+  }
+)
+router.post('/change-password',
+  async (req, res, next) => {
+    try {
+      const { token, newPassword } = req.body
+      const rta = await service.changePassword(token, newPassword)
+      res.json(rta)
     } catch (error) {
       //console.log('errror  ene ahtu', req.body);
       next(error);

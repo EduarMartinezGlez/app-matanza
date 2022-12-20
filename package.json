@@ -9,10 +9,7 @@
     "setup": "node setup.js",
     "lint": "eslint",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "migrations:generate": "sequelize-cli migration:generate --name",
-    "migrations:run": "sequelize db:migrate",
-    "migrations:revert": "sequelize-cli db:migrate:undo"
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",

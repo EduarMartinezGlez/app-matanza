@@ -1,4 +1,11 @@
 const express = require('express');
+const passport = require('passport')
+const {checkRole} = require('./../middlewares/auth.handler');
+const multer = require('multer')
+
+const upload =multer({
+  dest: 'uploads/'
+})
 
 const ProductsService = require('./../services/product.service');
 const validatorHandler = require('./../middlewares/validator.handler');
@@ -32,11 +39,13 @@ router.get('/:id',
 );
 
 router.post('/',
+passport.authenticate('jwt', {session:false}),
   validatorHandler(createProductSchema, 'body'),
+  upload.single('file'),
+  checkRole('Admin'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      console.log(body);
       const newProduct = await service.create(body);
       res.status(201).json(newProduct);
     } catch (error) {

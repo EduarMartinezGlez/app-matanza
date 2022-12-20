@@ -4,6 +4,7 @@ const session=require('express-session')
 const routerApi = require('./routes');
 
 
+
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 const passport = require('passport');
 
@@ -11,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
 const whitelist = ['http://localhost:8080', 'https://myapp.co'];

@@ -10,11 +10,13 @@ services:
       - POSTGRES_PASSWORD=dejame
     ports:
     - 5432:5432
-    # volumes:
-    # - ./postgres_data:/var/lib/postgresql/data
-  #  pgadmin: dpage/pgadmin
-  #  environment:
-  #  - PGADMIN_DEFAULT_EMAIL=
-  #   - PGADMIN_DEFAULT_PASSWORD=
-  #   ports:
-  #   -""
+    volumes:
+     - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+     - 5050:80

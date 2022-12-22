@@ -37,12 +37,12 @@ class AuthService {
     const payload = {
       sub: user.id,
     };
-    const token = jwt.sign(payload, config.jwtSecret, {expiresIn:'15min'})
+    const token = jwt.sign(payload, config.jwtSecret , {expiresIn:'15min'})
     const link = `http://myfrontenf.com/recovery?token=${token}`
     await service.update(user.id, {recoveryToken:token})
 
     const mail = {
-      from: `${config.adminEmail}`, // sender address
+      from: `${config.adminEmail || process.env.ADMINEMAIL}`, // sender address
       to: `${email}`, // list of receivers
       subject: 'Recovery password', // Subject line
       html: `<b>Recovery password in this link</b>=>${link}`, // html body

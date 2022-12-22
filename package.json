@@ -9,7 +9,8 @@
     "setup": "node setup.js",
     "lint": "eslint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "migrations:generate":"sequelize-cli migration:generate --name"
   },
   "keywords": [],
   "author": "",

@@ -33,6 +33,7 @@ router.post('/',
   async (req, res, next) => {
     try {
       const body = req.body;
+      console.log("body del ruter", body);
       const newCustomer = await service.create(body);
       res.status(201).json(newCustomer);
     } catch (error) {

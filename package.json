@@ -10,7 +10,9 @@
     "lint": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "migrations:generate":"sequelize-cli migration:generate --name"
+    "migrations:run":"sequelize-cli db:migrate",
+    "migrations:revert":"sequelize-cli db:undo",
+    "migrations:generate": "sequelize-cli migration:generate --name "
   },
   "keywords": [],
   "author": "",
@@ -23,7 +25,8 @@
     "eslint-plugin-prettier": "^3.4.1",
     "jest": "^27.5.1",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "sequelize-cli": "^6.5.2"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",

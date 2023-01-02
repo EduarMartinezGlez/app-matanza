@@ -19,9 +19,14 @@ class CustomerService {
         ...newUser
       },
     };
-    const newCustomer = await models.Customers.create(newData, {
-      include: ['user']
-    });
+    console.log("data en el servicio", newData);
+    const newCustomer =  await models.Customers.create(newData,{
+      include:['user']
+    })
+    // const newCustomer = await models.Customers.create(newData, {
+    //   include: ['user']
+    // });
+     console.log("el costumer creado ", newCustomer);
     return newCustomer;
   }
 

@@ -20,6 +20,7 @@ class AuthService {
     delete user.getDataValue.password;
     return user;
   }
+
   singToken(user) {
     const payload = {
       sub: user.id,

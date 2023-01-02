@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
-const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+const whitelist = ['http://localhost:8080', 'http://localhost:4200','https://myapp.co'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {

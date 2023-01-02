@@ -35,7 +35,6 @@ try{
   res.status(201).json(User);
 }catch(error) {
   next(error);
-
 }
 
 }

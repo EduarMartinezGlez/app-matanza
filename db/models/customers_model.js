@@ -21,7 +21,7 @@ const CustomerSchema = {
   },
   phone:{
     allowNull:false,
-    type:DataTypes.STRING
+    type:DataTypes.NUMBER
   },
   recoveryToken:{
     field:'recovery_token',

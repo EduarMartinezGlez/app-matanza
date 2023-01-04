@@ -6,6 +6,7 @@ class CustomerService {
   constructor() { }
 
   async create(data) {
+    console.log('pass del usuario', data.user.password);
     const hashPassword = await bcrypt.hash(data.user.password, 10);
     const newUser = {
       name: data.name,

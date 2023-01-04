@@ -23,18 +23,19 @@ router.get('/:id',
       const category = await service.findOne(id);
       res.json(category);
     } catch (error) {
+
       next(error);
     }
   }
 );
 
 router.post('/',
-  validatorHandler(createCustomerSchema, 'body'),
+validatorHandler(createCustomerSchema, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      console.log("body del ruter", body);
-      const newCustomer = await service.create(body);
+      //const {data} = req.body;
+      console.log("body del ruter", req.body);
+      const newCustomer = await service.create(req.body);
       res.status(201).json(newCustomer);
     } catch (error) {
       next(error);

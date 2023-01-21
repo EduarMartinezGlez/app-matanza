@@ -34,7 +34,7 @@ const OrderSchema= {
       if(this.items.length>0){
         //console.log(this.items.lenght);
         return this.items.reduce((total, item)=>{
-          return total+ (item.price * item?.OrderProduct?.amount)
+          return total+ (item.price * item.OrderProduct.amount)
         }, 0)
       }
     }

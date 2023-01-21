@@ -25,12 +25,16 @@ class UserService {
 
     return user;
   }
+  // async count(){
+  //   const user = await models.User
+  // }
 
   async findOne(id) {
     const user = await models.User.findByPk(id);
     if (!user) {
       throw boom.notFound('user not found');
     }
+    console.log('el user en findOne', user);
     return user;
   }
 
@@ -47,7 +51,7 @@ class UserService {
       return user;
     }
   }
-  async findOnlyByEmail(email, ) {
+  async findOnlyByEmail(email) {
     // console.error('email que entra por parametrons en findbyemail', { email });
     const user = await models.User.findOne({
       where: { email },
@@ -56,7 +60,9 @@ class UserService {
   }
   async update(id, changes) {
     const user = await this.findOne(id);
+    console.log('los changes', changes);
     const rta = user.update(changes);
+      console.log('respuesta del update', rta);
     return rta;
   }
 

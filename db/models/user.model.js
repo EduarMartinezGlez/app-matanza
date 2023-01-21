@@ -29,6 +29,10 @@ const UserSchema={
     type:DataTypes.STRING,
     defaultValue:'costumers'
   },
+  token:{
+    allowNull:true,
+    type:DataTypes.STRING,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

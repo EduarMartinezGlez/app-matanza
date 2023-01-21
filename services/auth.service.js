@@ -39,8 +39,8 @@ class AuthService {
       sub: user.id,
     };
     const token = jwt.sign(payload, config.jwtSecret , {expiresIn:'15min'})
-    const link = `http://myfrontenf.com/recovery?token=${token}`
-    await service.update(user.id, {recoveryToken:token})
+    const link = `http://localhost:4200/auth/recovery?token=${token}`
+    await service.update(user.id, token)
 
     const mail = {
       from: `${config.adminEmail || process.env.ADMINEMAIL}`, // sender address
@@ -67,12 +67,15 @@ class AuthService {
 async changePassword(token, newPassword){
   try{
     const payload= jwt.verify(token, config.jwtSecret)
+    console.log('el payload', payload);
     const user = await service.findOne(payload.sub)
-    if(user.recoveryToken !== token){
+    console.log('el user en el tolen',user.token);
+
+    if(user.token !== token){
       throw boom.unauthorized()
     }
     const hash = await bcrypt.hash(newPassword, 10)
-    await service.update(user.id, {recoveryToken:null, password:hash})
+    await service.update(user.id, {token:null, password:hash})
     return {message: 'password changed'}
 
   }catch(error){

@@ -12,7 +12,7 @@ const localStrategy = new LocalStategy(
     try {
         console.log("email del usuario antris de buscarlo en la base de datos", email);
       const user = await models.User.findOne({ where: { email: email } });
-      console.log('buscando el usuario', user.name);
+      console.log('buscando el usuario', user);
       if (!user) {
         return done(null, false, { message: 'El usuario no existe' });
       }

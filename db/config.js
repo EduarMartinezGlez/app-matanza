@@ -4,6 +4,7 @@ const USER = encodeURIComponent(config.dbUser)
  const PASSWORD = encodeURIComponent(config.dbPassword)
  const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.port}/${config.dbName}`
 
+
 module.exports= {
 
   development:{
@@ -17,4 +18,5 @@ module.exports= {
     url:URI,
     dialect: 'postgres',
   }
+
 }

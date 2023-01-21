@@ -6,10 +6,11 @@ const { updateCustomerSchema, createCustomerSchema, getCustomerSchema } = requir
 const router = express.Router();
 const service = new CustomerService();
 
-router.get('/', async (req, res, next) => {
+router.get('/count', async (req, res, next) => {
   try {
-    const categories = await service.find();
-    res.json(categories);
+    const customer = await service.count();
+    console.log(customer);
+    res.json(customer);
   } catch (error) {
     next(error);
   }

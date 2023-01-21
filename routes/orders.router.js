@@ -20,13 +20,25 @@ router.get('/:id',
   }
 );
 
+router.get('/',
+async (req, res, next)=>{
+  try{
+    // const   direccionIP = req.ip
+    // console.log(direccionIP);
+    const todayOrder = await service.findAll()
+    res.json(todayOrder)
+  }catch(error){
+    next(error)
+  }
+}
+)
 
 router.post('/',
   validatorHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      console.log(body);
+     // console.log(body);
       const newOrder = await service.create(body);
       res.status(201).json(newOrder);
     } catch (error) {
@@ -34,7 +46,6 @@ router.post('/',
     }
   }
 );
-
 router.post('/add-item',
   validatorHandler(addItemSchema, 'body'),
   async (req, res, next) => {

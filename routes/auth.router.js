@@ -28,7 +28,8 @@ router.post('/login',
 router.post('/recovery',
   async (req, res, next) => {
     try {
-      const { email } = req.body
+      const  {email}  = req.body
+      console.log('el email en la router rrecovery',email);
       const rta = await service.sendRecovryEmail(email)
       res.json(rta)
     } catch (error) {
@@ -42,6 +43,7 @@ router.post('/change-password',
   async (req, res, next) => {
     try {
       const { token, newPassword } = req.body
+      console.log('el token:', token, 'el pass:',newPassword);
       const rta = await service.changePassword(token, newPassword)
       res.json(rta)
     } catch (error) {

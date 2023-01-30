@@ -5,26 +5,18 @@ const {models} = require('../lib/sequelize')
 
   class ProductsService {
 
-  constructor(){
-//     //this.products = [];
-//     //this.generate();
-  }
+  constructor(){  }
 
-  generate() {
-    // const limit = 100;
-    // for (let index = 0; index < limit; index++) {
-    //   this.products.push({
-    //     id: faker.datatype.uuid(),
-    //     name: faker.commerce.productName(),
-    //     price: parseInt(faker.commerce.price(), 10),
-    //     image: faker.image.imageUrl(),
-    //     isBlock: faker.datatype.boolean(),
-    //   });
-    // }
-  }
+  generate() {  }
 
-  async create(data) {
-    const newProduct = await models.Product.create(data)
+  async create(data, imageName) {
+    console.log('la data en el servicio', data, imageName);
+    const newdata={
+      ...data,
+      image:imageName
+    }
+    console.log('el newdata', newdata);
+    const newProduct = await models.Product.create(newdata)
     return newProduct;
   }
 

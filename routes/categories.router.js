@@ -38,12 +38,13 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
-  checkRole('Admin'),
+  // passport.authenticate('jwt', { session: false }),
+  // checkRole('Admin'),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
+      console.log('body category', body);
       const newCategory = await service.create(body);
       res.status(201).json(newCategory);
     } catch (error) {

@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const session=require('express-session')
 const routerApi = require('./routes');
+// const multer = require('multer')
 
-
+//config multer
+// const DIR = './uploads/';
+// const upload = multer({dest: DIR});
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 const passport = require('passport');

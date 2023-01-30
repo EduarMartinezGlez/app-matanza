@@ -14,6 +14,7 @@ class CategoryService {
 
   async find() {
     const categories = await models.Category.findAll()
+    //console.log('en el find', categories);
     return categories;
   }
 

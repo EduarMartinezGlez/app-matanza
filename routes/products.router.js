@@ -44,10 +44,6 @@ router.post('/',
   async (req, res, next) => {
     try {
      const data =  req.body
-     // const data = JSON.parse(data)
-   //  const{name, desciption, category, price} = data
-       console.log('dataos del file',req.body)
-   //  console.log('body post prod',name, desciption, price)
       const newProduct = await service.create(data, req.file.filename);
       res.status(201).json(newProduct);
     } catch (error) {
@@ -72,10 +68,11 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validatorHandler(getProductSchema, 'params'),
+ // validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
+      console.log(id);
       await service.delete(id);
       res.status(201).json({id});
     } catch (error) {

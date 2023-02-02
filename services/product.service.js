@@ -1,35 +1,43 @@
 //const faker = require('faker');
 const boom = require('@hapi/boom');
 
-const {models} = require('../lib/sequelize')
+const { models } = require('../lib/sequelize')
 
-  class ProductsService {
+class ProductsService {
 
-  constructor(){  }
 
-  generate() {  }
+  constructor() { }
+
+  generate() { }
 
   async create(data, imageName) {
-    console.log('la data en el servicio', data, imageName);
-    const newdata={
+    const [Category] = await models.Category.findOrCreate({
+      where: { name: data.category }
+    })
+    const newdata = {
       ...data,
-      image:imageName
+      categoryId: Category.id,
+      image: imageName
     }
-    console.log('el newdata', newdata);
     const newProduct = await models.Product.create(newdata)
+
     return newProduct;
   }
 
-  find(query) {
+  async find(query) {
+   // console.log('en el service el query', query);
     const options = {
-      include:['category'],
+      include: ['category'],
     }
-    const {limit, offset}=query
-    if(limit && offset){
+    const { limit, offset } = query
+    if (limit && offset) {
       options.limit = limit
       options.offset = offset
     }
-    const products = models.Product.findAll({options})
+    const products = await models.Product.findAndCountAll({
+      limit: limit,
+      offset: offset
+    })
     return products
   }
 
@@ -58,12 +66,10 @@ const {models} = require('../lib/sequelize')
   }
 
   async delete(id) {
-    const index = this.products.findIndex(item => item.id === id);
-    if (index === -1) {
-      throw boom.notFound('product not found');
-    }
-    this.products.splice(index, 1);
-    return { id };
+    const prod = models.Product.destroy({
+      where: {id:id}
+    })
+    console.log('en el servicio', prod);
   }
 
 }

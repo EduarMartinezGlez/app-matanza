@@ -24,10 +24,11 @@ router.get('/', async (req, res, next) => {
 
 router.get(
   '/:id',
-  validatorHandler(getCategorySchema, 'params'),
+ // validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
+      console.log('el id del parametro', id);
       const category = await service.findOne(id);
       res.json(category);
     } catch (error) {

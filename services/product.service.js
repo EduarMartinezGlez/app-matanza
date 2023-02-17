@@ -42,27 +42,35 @@ class ProductsService {
   }
 
   async findOne(id) {
-    const product = models.Product.find(item => item.id === id);
+   // console.log('entrade del finone', id);
+    const product = await models.Product.findOne({ where: { id: id } })
     if (!product) {
       throw boom.notFound('product not found');
     }
     if (product.isBlock) {
       throw boom.conflict('product is block');
     }
+  //  console.log('product en finone', product);
     return product;
   }
 
-  async update(id, changes) {
-    const index = models.Product.findIndex(item => item.id === id);
-    if (index === -1) {
-      throw boom.notFound('product not found');
-    }
-    const product = this.products[index];
-    this.products[index] = {
-      ...product,
-      ...changes
-    };
-    return this.products[index];
+  async update(id, changes, image) {
+    const rta = await models.Product.update({ ...changes, image:image }, {
+      where: {
+        id: id
+      }
+    });
+    if (rta === -1) {
+        throw boom.notFound('product not found');
+       }
+
+  //  console.log('la respuesta del update', rta);
+    // const product = this.products[index];
+    // this.products[index] = {
+    //   ...product,
+    //   ...changes
+    // };
+    return rta;
   }
 
   async delete(id) {

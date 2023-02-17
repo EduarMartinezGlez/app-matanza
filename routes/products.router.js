@@ -24,11 +24,12 @@ async (req, res, next) => {
 });
 
 router.get('/:id',
-  validatorHandler(getProductSchema, 'params'),
+  //validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const product = await service.findOne(id);
+    const  {id}  = req.params;
+    const product = await service.findOne(id);
+   // console.log('el get param', product);
       res.json(product);
     } catch (error) {
       next(error);
@@ -53,13 +54,17 @@ router.post('/',
 );
 
 router.patch('/:id',
-  validatorHandler(getProductSchema, 'params'),
+  //validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
+ upload.single('file'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
+     // console.log('el paht 62', id);
       const body = req.body;
-      const product = await service.update(id, body);
+      const image =  req.file.filename
+    //  console.log('el bode del update', req.file.filename);
+      const product = await service.update(id, body, image);
       res.json(product);
     } catch (error) {
       next(error);

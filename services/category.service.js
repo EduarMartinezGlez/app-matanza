@@ -14,14 +14,12 @@ class CategoryService {
 
   async find() {
     const categories = await models.Category.findAll()
-    //console.log('en el find', categories);
+    console.log('en el find', categories);
     return categories;
   }
 
   async findOne(id) {
-    const category = await models.Category.findByPk(id, {
-      include:['product']
-    })
+    const category = await models.Category.findOne({ where: { id: id } })
     return category;
   }
 
